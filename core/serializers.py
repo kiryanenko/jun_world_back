@@ -2,13 +2,29 @@ from django.contrib.auth import authenticate, login
 from rest_framework import serializers
 
 from core.models import User
+from level.models import UserLevelProgress, Level
+
+
+class LevelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Level
+        fields = ('num', 'max_points')
+
+
+class UserLevelProgressSerializer(serializers.ModelSerializer):
+    level = LevelSerializer(read_only=True)
+
+    class Meta:
+        model = UserLevelProgress
+        fields = ('level', 'points')
 
 
 class UserSerializer(serializers.ModelSerializer):
+    level_progress = UserLevelProgressSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'rating')
+        fields = ('username', 'email', 'password', 'rating', 'level_progress')
         read_only_fields = ('rating',)
         extra_kwargs = {'password': {'write_only': True}}
 
