@@ -21,10 +21,11 @@ class UserLevelProgressSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     level_progress = UserLevelProgressSerializer(many=True, read_only=True)
+    achievements = serializers.SlugRelatedField(slug_field='slug', many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'rating', 'level_progress')
+        fields = ('username', 'email', 'password', 'rating', 'level_progress', 'achievements')
         read_only_fields = ('rating',)
         extra_kwargs = {'password': {'write_only': True}}
 

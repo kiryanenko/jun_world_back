@@ -9,5 +9,5 @@ class Achievement(models.Model):
         verbose_name_plural = 'achievements'
 
     slug = models.CharField(max_length=255, unique=True)
-    users = models.ManyToManyField(User, verbose_name='users')
+    users = models.ManyToManyField(User, verbose_name='users', related_name='achievements')
     points = models.FloatField(default=0)

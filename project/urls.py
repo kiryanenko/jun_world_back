@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^api/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^', include('core.urls', 'core')),
     url(r'^api/levels/', include('level.urls', 'level')),
+    url(r'^api/achievement/', include('achievement.urls', 'achievement')),
 ]
